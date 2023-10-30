@@ -1,5 +1,7 @@
-import { roboto_slab, Roboto_Mono } from "next/font/google";
+import { Roboto_Slab, Roboto_Mono } from "next/font/google";
+
 import ThemeContextProvider from "@/contexts/ThemeContextProvider";
+import MarkdownContextProvider from "@/contexts/MarkdownContextProvider";
 
 import "./globals.css";
 
@@ -9,7 +11,7 @@ const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
 });
 
-const robotoSlab = roboto_slab({
+const robotoSlab = Roboto_Slab({
   subsets: ["latin"],
   weight: ["500", "700"],
   variable: "--font-roboto_slab",
@@ -23,8 +25,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${robotoMono.variable} ${robotoSlab.variable}`}>
-        <ThemeContextProvider>{children}</ThemeContextProvider>
+      <body
+        className={`${robotoMono.variable} ${robotoSlab.variable} overflow-hidden`}
+      >
+        <MarkdownContextProvider>
+          <ThemeContextProvider>{children}</ThemeContextProvider>
+        </MarkdownContextProvider>
       </body>
     </html>
   );
