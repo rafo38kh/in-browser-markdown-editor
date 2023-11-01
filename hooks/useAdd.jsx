@@ -50,24 +50,5 @@ export function useAdd() {
     }
   };
 
-  // export const useAdd = () => {
-  //   const markdownCollectionRef = collection(db, "markdowns");
-  //   //   const { userID } = useGetUsersInfo();
-
-  //   // TODO
-  //   /*
-  //     create new document
-
-  //     strucutre:
-  //         - createdAt
-  //         - title
-  //         - markdown
-  //         - userId
-  //   */
-
-  //   const addMarkdown = async (markdown) => {
-  //     await addDoc(markdownCollectionRef, { markdown });
-  //   };
-
   return { createNewDoc, updateDocTitle, saveDocument, deleteDocument };
 }

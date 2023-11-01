@@ -6,6 +6,7 @@ export const useGetUsersInfo = () => {
 
   if (auth) {
     const { userID, name, profilePhoto, isAuth } = auth;
+
     return { userID, name, profilePhoto, isAuth };
   }
 

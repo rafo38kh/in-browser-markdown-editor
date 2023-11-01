@@ -35,29 +35,11 @@ export function useGet() {
 
           docs.push({ ...data, id });
         });
-        console.log(docs);
         setDocuments(docs);
       });
     } catch (err) {
       console.error(err);
     }
-
-    // console.log(documents);
-
-    // try {
-    //   const querydocs = query(
-    //     markdownCollections,
-    //     where("userID", "==", userID),
-    //     orderBy("createdAt", "desc")
-    //   );
-
-    //   await getDoc(
-    //     markdownCollections,
-    //     setDocument({ ...markdownCollections })
-    //   );
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   useEffect(() => {

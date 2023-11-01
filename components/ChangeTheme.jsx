@@ -1,11 +1,8 @@
 "use client";
-import Image from "next/image";
+
 import { useEffect } from "react";
 
 import { useTheme } from "next-themes";
-
-import iconDark from "../public/assets/icon-dark-mode.svg";
-import iconLight from "../public/assets/icon-light-mode.svg";
 
 export default function ChangeTheme() {
   const { systemTheme, theme, setTheme } = useTheme();

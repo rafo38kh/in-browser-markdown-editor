@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${robotoMono.variable} ${robotoSlab.variable} overflow-hidden`}
+        className={`${robotoMono.variable} ${robotoSlab.variable} min-h-screen overflow-hidden`}
       >
         <MarkdownContextProvider>
           <ThemeContextProvider>{children}</ThemeContextProvider>
