@@ -7,10 +7,11 @@ export default function LogOut() {
     try {
       await signOut(auth);
       const authInfo = {
-        userID: null,
         name: null,
-        profilePhoto: null,
+        email: null,
+        userID: null,
         isAuth: false,
+        profilePhoto: null,
       };
 
       if (typeof window !== "undefined") {

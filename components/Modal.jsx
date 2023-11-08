@@ -22,8 +22,8 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
 
   return mounted
     ? createPortal(
-        <div className="bg-black h-screen w-full z-0 fixed top-0 left-0  bg-black/80 flex justify-center items-center px-4">
-          <div className="z-50 dark:bg-primary-900 bg-white p-8 rounded-md">
+        <div className="bg-black h-screen w-full z-0 fixed top-0 left-0  bg-black/80 flex justify-center items-center px-4 ">
+          <div className="z-50 dark:bg-primary-900 bg-white p-8 rounded-md max-w-sm">
             <span className="text-xl font-bold dark:text-white text-primary-700">
               Delete this document?
             </span>
