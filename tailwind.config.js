@@ -34,6 +34,7 @@ module.exports = {
         "tertiary-200": "#F5F5F5",
         "orange-primary": "#E46643",
         "orange-secondary": "#F39765",
+        "icons-color": "#7d8287",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

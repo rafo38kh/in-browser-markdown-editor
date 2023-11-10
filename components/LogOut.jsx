@@ -1,8 +1,14 @@
+import { useContext } from "react";
+
 import { signOut } from "firebase/auth";
 
 import { auth } from "@/config/firebase";
 
-export default function LogOut() {
+import { MarkdownContext } from "@/contexts/MarkdownContextProvider";
+
+export default function LogOut({ setIsMenuOpend }) {
+  const { setIsLoggedIn } = useContext(MarkdownContext);
+
   const logOut = async () => {
     try {
       await signOut(auth);
@@ -13,7 +19,8 @@ export default function LogOut() {
         isAuth: false,
         profilePhoto: null,
       };
-
+      setIsLoggedIn(false);
+      setIsMenuOpend(false);
       if (typeof window !== "undefined") {
         window?.localStorage?.setItem("auth", JSON.stringify(authInfo));
       }

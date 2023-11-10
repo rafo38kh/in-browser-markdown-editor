@@ -3,17 +3,15 @@ import { useState, useContext, useEffect } from "react";
 import { MarkdownContext } from "@/contexts/MarkdownContextProvider";
 
 import { useAdd } from "@/hooks/useAdd";
-import { useGetUsersInfo } from "@/hooks/useGetUserInfo";
 
 import LogIn from "@/components/LogIn";
 import Modal from "@/components/Modal";
 import TopBarButtons from "@/components/TopBarButtons";
 
 export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
-  const { currentMarkdown } = useContext(MarkdownContext);
+  const { currentMarkdown, isLoggedIn } = useContext(MarkdownContext);
 
   const { updateDocTitle } = useAdd();
-  const { isAuth } = useGetUsersInfo();
 
   const [currentTitle, setCurrentTitle] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +20,7 @@ export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
     if (currentMarkdown) {
       setCurrentTitle(currentMarkdown?.title);
     }
-  }, [currentMarkdown]);
+  }, [isLoggedIn, currentMarkdown]);
 
   const handleUpdateTitleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +33,7 @@ export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
       <div className="flex justify-center items-center gap-4">
         <button
           type="button"
-          className="bg-primary-700 p-5"
+          className="bg-primary-700  hover:bg-orange-primary p-5 "
           onClick={() => setIsMenuOpend((prevState) => !prevState)}
         >
           {!isMenuOpend ? (
@@ -67,7 +65,7 @@ export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M13.107 3.393c.167.167.31.393.429.678.119.286.178.548.178.786v10.286c0 .238-.083.44-.25.607a.827.827 0 0 1-.607.25h-12a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V.857C0 .62.083.417.25.25A.827.827 0 0 1 .857 0h8c.238 0 .5.06.786.179.286.119.512.261.678.428l2.786 2.786ZM9.143 1.214v3.357H12.5c-.06-.172-.125-.294-.196-.366L9.509 1.411c-.072-.072-.194-.137-.366-.197Zm3.428 13.643V5.714H8.857a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V1.143H1.143v13.714H12.57Z"
-                fill="#FFF"
+                fill="#FFF "
               />
             </svg>
 
@@ -88,7 +86,7 @@ export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
           </div>
         )}
 
-        <div className="hidden lg:flex w-full items-center gap-4 mr-2 md:hidden">
+        <div className="hidden lg:flex w-full items-center gap-4 mr-2 md:flex">
           <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M13.107 3.393c.167.167.31.393.429.678.119.286.178.548.178.786v10.286c0 .238-.083.44-.25.607a.827.827 0 0 1-.607.25h-12a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V.857C0 .62.083.417.25.25A.827.827 0 0 1 .857 0h8c.238 0 .5.06.786.179.286.119.512.261.678.428l2.786 2.786ZM9.143 1.214v3.357H12.5c-.06-.172-.125-.294-.196-.366L9.509 1.411c-.072-.072-.194-.137-.366-.197Zm3.428 13.643V5.714H8.857a.827.827 0 0 1-.607-.25.827.827 0 0 1-.25-.607V1.143H1.143v13.714H12.57Z"
@@ -115,7 +113,7 @@ export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
 
       <div className="md:hidden">
         {!isMenuOpend &&
-          (isAuth ? (
+          (isLoggedIn ? (
             <TopBarButtons setIsModalOpen={setIsModalOpen} />
           ) : (
             <LogIn />
@@ -123,7 +121,11 @@ export default function TopBar({ isMenuOpend, setIsMenuOpend }) {
       </div>
 
       <div className="hidden md:flex">
-        {isAuth ? <TopBarButtons setIsModalOpen={setIsModalOpen} /> : <LogIn />}
+        {isLoggedIn ? (
+          <TopBarButtons setIsModalOpen={setIsModalOpen} />
+        ) : (
+          <LogIn />
+        )}
       </div>
 
       <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

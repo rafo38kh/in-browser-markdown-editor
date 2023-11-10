@@ -13,19 +13,20 @@ import { firebaseDateToRegular } from "@/helper_functions/firebaseDateToRegular"
 import LogOut from "./LogOut";
 import ChangeTheme from "@/components/ChangeTheme";
 
-export default function SideBar() {
+export default function SideBar({ setIsMenuOpend }) {
   const { documents } = useGet();
   const { createNewDoc } = useAdd();
   const { userID } = useGetUsersInfo();
 
-  const { currentMarkdown, setCurrentMarkdown } = useContext(MarkdownContext);
+  const { currentMarkdown, setCurrentMarkdown, isLoggedIn } =
+    useContext(MarkdownContext);
 
-  const { isAuth, name, profilePhoto, email } = useGetUsersInfo();
+  const { name, profilePhoto, email } = useGetUsersInfo();
 
   return (
     <aside className="h-screen w-64 flex-shrink-0 px-6 py-7 lg:pt-5 flex flex-col bg-primary-900 justify-between items-start m-0">
       <div>
-        {isAuth && (
+        {isLoggedIn && (
           <div className="my-4">
             <Image
               className="rounded-lg mb-2"
@@ -34,8 +35,8 @@ export default function SideBar() {
               width={100}
               alt="User profile photo"
             />
-            <span className="text-md block">Hi, {name}</span>
-            <span className="text-sm block">{email}</span>
+            <span className="text-md block text-white">Hi, {name}</span>
+            <span className="text-sm block text-white">{email}</span>
           </div>
         )}
 
@@ -54,17 +55,20 @@ export default function SideBar() {
           <span className="block text-sm uppercase text-secondary-500 tracking-widest">
             my documents
           </span>
-          <button
-            type="button"
-            className="bg-orange-primary hover:bg-orange-secondary py-2 px-6 rounded-md text-white"
-            onClick={() => createNewDoc(userID)}
-          >
-            + New Document
-          </button>
+          {isLoggedIn && (
+            <button
+              type="button"
+              className="bg-orange-primary hover:bg-orange-secondary py-2 px-6 rounded-md text-white"
+              onClick={() => createNewDoc(userID)}
+            >
+              + New Document
+            </button>
+          )}
         </div>
         {!documents ? (
           <span>Loading...</span>
         ) : (
+          isLoggedIn &&
           documents?.map((doc) => (
             <div
               key={uuidv4()}
@@ -83,7 +87,7 @@ export default function SideBar() {
                 }}
                 className={`flex flex-col items-start justify-center ${
                   currentMarkdown?.id === doc?.id
-                    ? "group-last::text-orange-primary"
+                    ? "group-last:text-orange-primary"
                     : null
                 }`}
               >
@@ -104,10 +108,10 @@ export default function SideBar() {
           ))
         )}
       </div>
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-10">
         <ChangeTheme />
 
-        {isAuth && <LogOut />}
+        {isLoggedIn && <LogOut setIsMenuOpend={setIsMenuOpend} />}
       </div>
     </aside>
   );

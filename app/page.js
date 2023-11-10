@@ -5,8 +5,6 @@ import { ScrollSync, ScrollSyncPane } from "react-scroll-sync";
 import { MarkdownContext } from "@/contexts/MarkdownContextProvider";
 
 import { useAdd } from "@/hooks/useAdd";
-import { useGet } from "@/hooks/useGet";
-import { useGetUsersInfo } from "@/hooks/useGetUserInfo";
 
 import TopBar from "@/components/TopBar";
 import SideBar from "@/components/SideBar";
@@ -16,9 +14,7 @@ import Preview from "@/components/Preview";
 import { debounce } from "@/helper_functions/debounce";
 
 export default function Home() {
-  const { isAuth } = useGetUsersInfo();
-  const { documents } = useGet();
-  const { currentMarkdown, setCurrentMarkdown } = useContext(MarkdownContext);
+  const { currentMarkdown } = useContext(MarkdownContext);
 
   const { saveDocument } = useAdd();
 
@@ -32,12 +28,19 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setMarkdown(documents?.at(0));
-  }, [isAuth]);
+    setMarkdown(currentMarkdown?.markdown);
+  }, [currentMarkdown]);
+
+  console.log(currentMarkdown);
+
+  // useEffect(() => {
+  //   setTimeout();
+  //   setIsShow((prevState) => !prevState);
+  // }, [isAuth]);
 
   return (
     <div className="flex pb-16 relative">
-      {isMenuOpend && <SideBar />}
+      {isMenuOpend && <SideBar setIsMenuOpend={setIsMenuOpend} />}
 
       <div className="w-full grid grid-rows-[auto_1fr] ">
         <TopBar isMenuOpend={isMenuOpend} setIsMenuOpend={setIsMenuOpend} />

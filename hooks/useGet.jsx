@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { MarkdownContext } from "@/contexts/MarkdownContextProvider";
 
 import {
   getDoc,
@@ -16,6 +17,7 @@ import { db } from "@/config/firebase";
 export function useGet() {
   const [documents, setDocuments] = useState([]);
   const markdownCollections = collection(db, "markdowns");
+  const { setCurrentMarkdown } = useContext(MarkdownContext);
   const { userID } = useGetUsersInfo();
 
   const getDocs = async () => {
