@@ -34,7 +34,7 @@ export default function Markdown({
         <textarea
           cols="30"
           rows="10"
-          className="h-full w-full resize-none bg-white dark:bg-primary-1000 p-4 pb-32 pt-12 text-sm font-normal leading-6 font-roboto-mono dark:text-secondary-400 text-primary-700 md:pt-0 outline-none border-t-4 border-transparent focus:border-orange-primary"
+          className="h-full w-full resize-none bg-white dark:bg-primary-1000 p-4 pb-64 pt-16 text-sm font-normal leading-6 font-roboto-mono dark:text-secondary-400 text-primary-700 md:pt-0 outline-none border-t-4 border-transparent focus:border-orange-primary"
           value={markdown}
           onChange={(e) => {
             setMarkdown(e.target.value);

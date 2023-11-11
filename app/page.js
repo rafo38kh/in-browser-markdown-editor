@@ -11,8 +11,6 @@ import SideBar from "@/components/SideBar";
 import Markdown from "@/components/Markdown";
 import Preview from "@/components/Preview";
 
-import { debounce } from "@/helper_functions/debounce";
-
 export default function Home() {
   const { currentMarkdown } = useContext(MarkdownContext);
 
@@ -31,15 +29,8 @@ export default function Home() {
     setMarkdown(currentMarkdown?.markdown);
   }, [currentMarkdown]);
 
-  console.log(currentMarkdown);
-
-  // useEffect(() => {
-  //   setTimeout();
-  //   setIsShow((prevState) => !prevState);
-  // }, [isAuth]);
-
   return (
-    <div className="flex pb-16 relative">
+    <div className="flex pb-16 relative overflow-scroll">
       {isMenuOpend && <SideBar setIsMenuOpend={setIsMenuOpend} />}
 
       <div className="w-full grid grid-rows-[auto_1fr] ">

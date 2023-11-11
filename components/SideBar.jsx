@@ -13,6 +13,8 @@ import { firebaseDateToRegular } from "@/helper_functions/firebaseDateToRegular"
 import LogOut from "./LogOut";
 import ChangeTheme from "@/components/ChangeTheme";
 
+import DATA from "@/data";
+
 export default function SideBar({ setIsMenuOpend }) {
   const { documents } = useGet();
   const { createNewDoc } = useAdd();
@@ -22,6 +24,8 @@ export default function SideBar({ setIsMenuOpend }) {
     useContext(MarkdownContext);
 
   const { name, profilePhoto, email } = useGetUsersInfo();
+
+  const currentList = isLoggedIn ? documents : DATA.slice().reverse();
 
   return (
     <aside className="h-screen w-64 flex-shrink-0 px-6 py-7 lg:pt-5 flex flex-col bg-primary-900 justify-between items-start m-0">
@@ -68,8 +72,7 @@ export default function SideBar({ setIsMenuOpend }) {
         {!documents ? (
           <span>Loading...</span>
         ) : (
-          isLoggedIn &&
-          documents?.map((doc) => (
+          currentList?.map((doc) => (
             <div
               key={uuidv4()}
               className="flex flex-row justify-start items-center gap-4 mb-6"

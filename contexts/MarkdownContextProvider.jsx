@@ -4,11 +4,13 @@ import { createContext, useMemo, useState, useEffect } from "react";
 import { useGet } from "@/hooks/useGet";
 import { useGetUsersInfo } from "@/hooks/useGetUserInfo";
 
+import DATA from "@/data";
+
 export const MarkdownContext = createContext({
-  currentMarkdown: null,
-  setCurrentMarkdown: () => {},
   isLoggedIn: null,
   setIsLoggedIn: () => {},
+  currentMarkdown: null,
+  setCurrentMarkdown: () => {},
 });
 
 export default function MarkdownContextProvider({ children }) {
@@ -19,10 +21,9 @@ export default function MarkdownContextProvider({ children }) {
   const { isAuth } = useGetUsersInfo();
 
   useEffect(() => {
-    isAuth === true ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    if (isAuth === true) setIsLoggedIn(true);
+    else setIsLoggedIn(false);
   }, [isAuth]);
-
-  console.log();
 
   useEffect(() => {
     if (documents) setCurrentMarkdown(documents?.at(0));
